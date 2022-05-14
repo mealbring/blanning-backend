@@ -4,6 +4,5 @@ module.exports = {
     '^lib/(.*)$': '<rootDir>/lib/$1',
   },
   preset: 'ts-jest',
-  setupFiles: ['dotenv/config'],
   testEnvironment: 'node',
 };
