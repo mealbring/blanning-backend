@@ -5,6 +5,10 @@
     "-r",
     "ts-node/register"
   ],
+  "scriptArgs": [
+    "--config",
+    "config/local/.kuzzlerc"
+  ],
   "watch": [
     "app.ts",
     "lib",
