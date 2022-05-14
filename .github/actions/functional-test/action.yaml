@@ -1,12 +1,11 @@
-name: Backend - Functional Tests
-description: Run Functional Tests for backend
+name: Functional Tests
+description: Run Functional Tests
 runs:
   using: "composite"
   steps:
-    - name: Run backend functional test
+    - name: Run functional test
       shell: bash
       run: |
-           cd backend
            npm install
            npm run build
            DOCKER_COMMAND="npm run prod" docker-compose up -d
