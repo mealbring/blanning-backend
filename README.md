@@ -1,4 +1,14 @@
-# What is blanning ?
+<div style="text-align:center"><img src="./images/blanning.png" /></div>
+
+![release](https://badgen.net/github/release/mealbring/blanning-backend)
+![checks](https://badgen.net/github/checks/mealbring/blanning-backend)
+![stars](https://badgen.net/github/stars/mealbring/blanning-backend)
+![issues](https://badgen.net/github/issues/mealbring/blanning-backend)
+![last-commit](https://badgen.net/github/last-commit/mealbring/blanning-backend)
+![commits](https://badgen.net/github/commits/mealbring/blanning-backend)
+
+
+# Why Blanning ?
 
 Blanning is a meal planner application. It allows you to create and manage your meals for a period of time.
 
