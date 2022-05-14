@@ -25,6 +25,7 @@
     "ergol": "^1.0.2",
     "eslint": "^8.15.0",
     "eslint-friendly-formatter": "^4.0.1",
+    "eslint-plugin-jest": "^26.2.1",
     "mock-require": "^3.0.3",
     "ts-jest": "^28.0.2",
     "ts-node": "^10.7.0",
