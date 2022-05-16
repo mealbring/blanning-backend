@@ -32,7 +32,7 @@ export class RecipeService {
    * @description Get an recipe
    */
   async get(recipeId: string): Promise<Recipe> {
-    const recipe = new Recipe(recipeId, '16/05/2022', '23/05/2022', []);
+    const recipe = new Recipe(recipeId, '16/05/2022', '23/05/2022', 2, []);
 
     return Recipe.fromJson(recipe);
   }
