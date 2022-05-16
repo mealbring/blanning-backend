@@ -1,4 +1,4 @@
-import { Blanning } from './lib/Blanning';
+import { Blanning } from './lib/core/Blanning';
 
 const app = new Blanning();
 

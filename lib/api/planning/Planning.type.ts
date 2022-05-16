@@ -15,11 +15,6 @@ export class Planning {
   }
 
   static fromJson(json: JSONObject): Planning {
-    return new Planning(
-      json.name,
-      json.startDate,
-      json.dueDate,
-      json.recipies.map(Recipe.fromJson)
-    );
+    return new Planning(json.name, json.startDate, json.dueDate, json.recipies.map(Recipe.fromJson));
   }
 }

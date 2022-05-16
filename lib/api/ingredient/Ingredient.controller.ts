@@ -1,6 +1,6 @@
 import { Controller, KuzzleRequest } from 'kuzzle';
 
-import { Blanning } from '../Blanning';
+import { Blanning } from '../../core/Blanning';
 import { Ingredient } from './Ingredient.type';
 import { IngredientService } from './Ingredient.service';
 
@@ -59,9 +59,9 @@ export class IngredientController extends Controller {
    */
   async delete(request: KuzzleRequest): Promise<string> {
     this.app.log.debug(request);
-    const resourceId = request.getString('resourceId');
+    const ingredientId = request.getString('ingredientId');
 
-    return this.ingredientService.delete(resourceId);
+    return this.ingredientService.delete(ingredientId);
   }
 
   /**
@@ -69,9 +69,9 @@ export class IngredientController extends Controller {
    */
   async get(request: KuzzleRequest): Promise<Ingredient> {
     this.app.log.debug(request);
-    const resourceId = request.getString('resourceId');
+    const ingredientId = request.getString('ingredientId');
 
-    return this.ingredientService.get(resourceId);
+    return this.ingredientService.get(ingredientId);
   }
 
   /**
@@ -89,8 +89,9 @@ export class IngredientController extends Controller {
   async update(request: KuzzleRequest): Promise<Ingredient> {
     this.app.log.debug(request);
 
+    const ingredientId = request.getString('ingredientId');
     const ingredient = Ingredient.fromJson(request.input.body);
 
-    return this.ingredientService.update(ingredient);
+    return this.ingredientService.update(ingredientId, ingredient);
   }
 }

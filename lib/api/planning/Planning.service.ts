@@ -1,4 +1,5 @@
-import { Blanning } from 'lib/Blanning';
+import { JSONObject } from 'kuzzle';
+import { Blanning } from 'lib/core/Blanning';
 import { Planning } from './Planning.type';
 
 /**
@@ -7,9 +8,13 @@ import { Planning } from './Planning.type';
  */
 export class PlanningService {
   private app: Blanning;
+  private index: string;
+  private collection: string;
 
   constructor(app: Blanning) {
     this.app = app;
+    this.index = app.configuration.index;
+    this.collection = app.configuration.plannings;
   }
 
   /**
@@ -18,6 +23,8 @@ export class PlanningService {
   async create(planning: Planning): Promise<Planning> {
     this.app.log.debug(planning);
 
+    await this.app.sdk.document.create(this.index, this.collection, planning);
+
     return Planning.fromJson(planning);
   }
 
@@ -25,6 +32,8 @@ export class PlanningService {
    * @description Delete an planning
    */
   async delete(planningId: string): Promise<string> {
+    await this.app.sdk.document.delete(this.index, this.collection, planningId);
+
     return planningId;
   }
 
@@ -32,7 +41,7 @@ export class PlanningService {
    * @description Get an planning
    */
   async get(planningId: string): Promise<Planning> {
-    const planning = new Planning(planningId, '16/05/2022', '23/05/2022', []);
+    const planning = await this.app.sdk.document.get(this.index, this.collection, planningId);
 
     return Planning.fromJson(planning);
   }
@@ -41,13 +50,17 @@ export class PlanningService {
    * @description List planning
    */
   async list(): Promise<Planning[]> {
-    return [];
+    const plannings = await this.app.sdk.document.search(this.index, this.collection, {});
+
+    return plannings.hits.map((planning: JSONObject) => Planning.fromJson(planning._source));
   }
 
   /**
    * @description Update an planning
    */
-  async update(planning: Planning): Promise<Planning> {
+  async update(planningId: string, planning: Planning): Promise<Planning> {
+    await this.app.sdk.document.update(this.index, this.collection, planningId, planning);
+
     return planning;
   }
 }

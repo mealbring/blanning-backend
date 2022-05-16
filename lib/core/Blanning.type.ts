@@ -3,4 +3,7 @@
  */
 export type Configuration = {
   index: string;
+  ingredients: string;
+  plannings: string;
+  recipies: string;
 };

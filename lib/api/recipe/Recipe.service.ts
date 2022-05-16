@@ -1,4 +1,5 @@
-import { Blanning } from 'lib/Blanning';
+import { JSONObject } from 'kuzzle';
+import { Blanning } from 'lib/core/Blanning';
 import { Recipe } from './Recipe.type';
 
 /**
@@ -7,9 +8,13 @@ import { Recipe } from './Recipe.type';
  */
 export class RecipeService {
   private app: Blanning;
+  private index: string;
+  private collection: string;
 
   constructor(app: Blanning) {
     this.app = app;
+    this.index = app.configuration.index;
+    this.collection = app.configuration.recipies;
   }
 
   /**
@@ -18,6 +23,8 @@ export class RecipeService {
   async create(recipe: Recipe): Promise<Recipe> {
     this.app.log.debug(recipe);
 
+    await this.app.sdk.document.create(this.index, this.collection, recipe);
+
     return Recipe.fromJson(recipe);
   }
 
@@ -25,6 +32,8 @@ export class RecipeService {
    * @description Delete an recipe
    */
   async delete(recipeId: string): Promise<string> {
+    await this.app.sdk.document.delete(this.index, this.collection, recipeId);
+
     return recipeId;
   }
 
@@ -32,7 +41,7 @@ export class RecipeService {
    * @description Get an recipe
    */
   async get(recipeId: string): Promise<Recipe> {
-    const recipe = new Recipe(recipeId, '16/05/2022', '23/05/2022', 2, []);
+    const recipe = await this.app.sdk.document.get(this.index, this.collection, recipeId);
 
     return Recipe.fromJson(recipe);
   }
@@ -41,13 +50,17 @@ export class RecipeService {
    * @description List recipe
    */
   async list(): Promise<Recipe[]> {
-    return [];
+    const recipies = await this.app.sdk.document.search(this.index, this.collection, {});
+
+    return recipies.hits.map((recipe: JSONObject) => Recipe.fromJson(recipe._source));
   }
 
   /**
    * @description Update an recipe
    */
-  async update(recipe: Recipe): Promise<Recipe> {
+  async update(recipeId: string, recipe: Recipe): Promise<Recipe> {
+    await this.app.sdk.document.update(this.index, this.collection, recipeId, recipe);
+
     return recipe;
   }
 }

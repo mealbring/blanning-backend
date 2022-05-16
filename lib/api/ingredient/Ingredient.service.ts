@@ -1,4 +1,5 @@
-import { Blanning } from 'lib/Blanning';
+import { JSONObject } from 'kuzzle';
+import { Blanning } from 'lib/core/Blanning';
 import { Ingredient } from './Ingredient.type';
 
 /**
@@ -7,9 +8,13 @@ import { Ingredient } from './Ingredient.type';
  */
 export class IngredientService {
   private app: Blanning;
+  private index: string;
+  private collection: string;
 
   constructor(app: Blanning) {
     this.app = app;
+    this.index = app.configuration.index;
+    this.collection = app.configuration.ingredients;
   }
 
   /**
@@ -18,6 +23,8 @@ export class IngredientService {
   async create(ingredient: Ingredient): Promise<Ingredient> {
     this.app.log.debug(ingredient);
 
+    await this.app.sdk.document.create(this.index, this.collection, ingredient);
+
     return Ingredient.fromJson(ingredient);
   }
 
@@ -25,6 +32,8 @@ export class IngredientService {
    * @description Delete an ingredient
    */
   async delete(ingredientId: string): Promise<string> {
+    await this.app.sdk.document.delete(this.index, this.collection, ingredientId);
+
     return ingredientId;
   }
 
@@ -32,7 +41,7 @@ export class IngredientService {
    * @description Get an ingredient
    */
   async get(ingredientId: string): Promise<Ingredient> {
-    const ingredient = new Ingredient(ingredientId, 'todo, find me from database');
+    const ingredient = await this.app.sdk.document.get(this.index, this.collection, ingredientId);
 
     return Ingredient.fromJson(ingredient);
   }
@@ -41,13 +50,17 @@ export class IngredientService {
    * @description List ingredient
    */
   async list(): Promise<Ingredient[]> {
-    return [];
+    const ingredients = await this.app.sdk.document.search(this.index, this.collection, {});
+
+    return ingredients.hits.map((ingredient: JSONObject) => Ingredient.fromJson(ingredient._source));
   }
 
   /**
    * @description Update an ingredient
    */
-  async update(ingredient: Ingredient): Promise<Ingredient> {
+  async update(ingredientId: string, ingredient: Ingredient): Promise<Ingredient> {
+    await this.app.sdk.document.update(this.index, this.collection, ingredientId, ingredient);
+
     return ingredient;
   }
 }

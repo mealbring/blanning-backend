@@ -1,6 +1,6 @@
 import { Controller, KuzzleRequest } from 'kuzzle';
 
-import { Blanning } from '../Blanning';
+import { Blanning } from '../../core/Blanning';
 import { Planning } from './Planning.type';
 import { PlanningService } from './Planning.service';
 
@@ -59,9 +59,9 @@ export class PlanningController extends Controller {
    */
   async delete(request: KuzzleRequest): Promise<string> {
     this.app.log.debug(request);
-    const resourceId = request.getString('resourceId');
+    const planningId = request.getString('planningId');
 
-    return this.planningService.delete(resourceId);
+    return this.planningService.delete(planningId);
   }
 
   /**
@@ -69,9 +69,9 @@ export class PlanningController extends Controller {
    */
   async get(request: KuzzleRequest): Promise<Planning> {
     this.app.log.debug(request);
-    const resourceId = request.getString('resourceId');
+    const planningId = request.getString('planningId');
 
-    return this.planningService.get(resourceId);
+    return this.planningService.get(planningId);
   }
 
   /**
@@ -89,8 +89,9 @@ export class PlanningController extends Controller {
   async update(request: KuzzleRequest): Promise<Planning> {
     this.app.log.debug(request);
 
+    const planningId = request.getString('planningId');
     const planning = Planning.fromJson(request.input.body);
 
-    return this.planningService.update(planning);
+    return this.planningService.update(planningId, planning);
   }
 }

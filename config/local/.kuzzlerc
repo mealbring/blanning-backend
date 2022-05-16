@@ -1,5 +1,8 @@
 {
   "application": {
-    "index": "config"
+    "index": "config",
+    "ingredients": "ingredients",
+    "recipies": "recipies",
+    "plannings": "plannings"
   }
 }

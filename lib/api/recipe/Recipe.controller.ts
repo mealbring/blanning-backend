@@ -1,6 +1,6 @@
 import { Controller, KuzzleRequest } from 'kuzzle';
 
-import { Blanning } from '../Blanning';
+import { Blanning } from '../../core/Blanning';
 import { Recipe } from './Recipe.type';
 import { RecipeService } from './Recipe.service';
 
@@ -59,9 +59,9 @@ export class RecipeController extends Controller {
    */
   async delete(request: KuzzleRequest): Promise<string> {
     this.app.log.debug(request);
-    const resourceId = request.getString('resourceId');
+    const recipeId = request.getString('recipeId');
 
-    return this.recipeService.delete(resourceId);
+    return this.recipeService.delete(recipeId);
   }
 
   /**
@@ -69,9 +69,9 @@ export class RecipeController extends Controller {
    */
   async get(request: KuzzleRequest): Promise<Recipe> {
     this.app.log.debug(request);
-    const resourceId = request.getString('resourceId');
+    const recipeId = request.getString('recipeId');
 
-    return this.recipeService.get(resourceId);
+    return this.recipeService.get(recipeId);
   }
 
   /**
@@ -89,8 +89,9 @@ export class RecipeController extends Controller {
   async update(request: KuzzleRequest): Promise<Recipe> {
     this.app.log.debug(request);
 
+    const recipeId = request.getString('recipeId');
     const recipe = Recipe.fromJson(request.input.body);
 
-    return this.recipeService.update(recipe);
+    return this.recipeService.update(recipeId, recipe);
   }
 }
