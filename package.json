@@ -14,6 +14,7 @@
   "main": "app.ts",
   "license": "Apache-2.0",
   "dependencies": {
+    "bring-shopping": "^1.4.3",
     "kuzzle": "^2"
   },
   "devDependencies": {

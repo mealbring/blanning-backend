@@ -1,9 +1,5 @@
-import { Backend } from 'kuzzle'
+import { Blanning } from './lib/Blanning';
 
-const app = new Backend('blanning')
+const app = new Blanning();
 
-app.start()
-  .then(() => {
-    app.log.info('Application started')
-  })
-  .catch(console.error)
+app.start().then().catch(console.error);

@@ -6,7 +6,7 @@ Reflect.defineProperty(global, 'app', {
 });
 
 describe('IngredientController', () => {
-  // const IngredientController = new IngredientController(new ConsoleAPI());
+  // const IngredientController = new IngredientController(new Blanning());
 
   describe('constructor', () => {
     it.todo('should instanciate a new IngredientController');
