@@ -10,7 +10,7 @@ import { RecipeService } from './Recipe.service';
  * @description RecipeController is the controller to manage Recipes.
  */
 export class RecipeController extends Controller {
-  private recipeService: RecipeService;
+  public recipeService: RecipeService;
 
   constructor(app: Blanning) {
     super(app);

@@ -10,7 +10,7 @@ import { IngredientService } from './Ingredient.service';
  * @description IngredientController is the controller to manage Ingredients.
  */
 export class IngredientController extends Controller {
-  private ingredientService: IngredientService;
+  public ingredientService: IngredientService;
 
   constructor(app: Blanning) {
     super(app);
@@ -46,7 +46,7 @@ export class IngredientController extends Controller {
   /**
    * @description Add a new ingredient
    */
-  async create(request: KuzzleRequest): Promise<any> {
+  async create(request: KuzzleRequest): Promise<Ingredient> {
     this.app.log.debug(request);
 
     const ingredient = Ingredient.fromJson(request.input.body);

@@ -10,7 +10,7 @@ import { PlanningService } from './Planning.service';
  * @description PlanningController is the controller to manage Plannings.
  */
 export class PlanningController extends Controller {
-  private planningService: PlanningService;
+  public planningService: PlanningService;
 
   constructor(app: Blanning) {
     super(app);
