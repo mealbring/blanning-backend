@@ -1,9 +1,12 @@
-import { Backend } from 'kuzzle'
+import { Blanning } from './lib/core/Blanning';
 
-const app = new Backend('blanning')
+const app = new Blanning();
 
-app.start()
+app
+  .start()
   .then(() => {
-    app.log.info('Application started')
+    app.log.info('Application started');
   })
-  .catch(console.error)
+  .catch(() => {
+    process.exit(1);
+  });
