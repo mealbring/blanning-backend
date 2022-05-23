@@ -6,4 +6,5 @@ export type Configuration = {
   ingredients: string;
   plannings: string;
   recipies: string;
+  users: string;
 };

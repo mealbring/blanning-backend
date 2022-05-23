@@ -1,5 +1,5 @@
 import { JSONObject } from 'kuzzle';
-import { Blanning } from 'lib/core/Blanning';
+import { Blanning } from '../../core/Blanning';
 import { Ingredient } from './Ingredient.type';
 
 /**
