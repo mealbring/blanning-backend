@@ -1,6 +1,6 @@
 import { MappingsProperties } from 'kuzzle';
 
-export const UserMappings = {
+export const UsersMappings = {
   mappings: {
     dynamic: 'true',
     properties: {

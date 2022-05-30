@@ -7,7 +7,8 @@ import { IngredientMappings } from '../api/ingredient/Ingredient.mappings';
 import { PlanningController } from '../api/planning/Planning.controller';
 import { PlanningMappings } from '../api/planning/Planning.mappings';
 import { RecipeController } from '../api/recipe/Recipe.controller';
-import { RecipiesMappings } from '../api/recipe/Recipe.mapping';
+import { RecipiesMappings } from '../api/recipe/Recipe.mappings';
+import { UsersMappings } from '../api/user/User.mappings';
 
 export class Blanning extends Backend {
   public configuration: Configuration;
@@ -39,10 +40,12 @@ export class Blanning extends Backend {
       const indexExists = await this.sdk.index.exists(this.configuration.index);
 
       if (!indexExists) {
-        await this.sdk.index.create(this.configuration.index);
-        await this.sdk.collection.create(this.configuration.index, 'ingredients', IngredientMappings);
-        await this.sdk.collection.create(this.configuration.index, 'plannings', PlanningMappings);
-        await this.sdk.collection.create(this.configuration.index, 'recipe', RecipiesMappings);
+        const { index, ingredients, plannings, recipies, users } = this.configuration;
+        await this.sdk.index.create(index);
+        await this.sdk.collection.create(index, ingredients, IngredientMappings);
+        await this.sdk.collection.create(index, plannings, PlanningMappings);
+        await this.sdk.collection.create(index, recipies, RecipiesMappings);
+        await this.sdk.collection.create(index, users, UsersMappings);
         this.log.info('Database initialized');
       } else {
         this.log.info('Database already initialized');
