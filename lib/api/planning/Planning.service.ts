@@ -1,5 +1,6 @@
 import { JSONObject } from 'kuzzle';
-import { Blanning } from 'lib/core/Blanning';
+import { Blanning } from '../..//core/Blanning';
+import { Bring } from '../../core/Bring';
 import { Planning } from './Planning.type';
 
 /**
@@ -24,6 +25,19 @@ export class PlanningService {
     this.app.log.debug(planning);
 
     await this.app.sdk.document.create(this.index, this.collection, planning);
+
+    const currentUser = await this.app.sdk.auth.getCurrentUser();
+
+    const userConfig = await this.app.sdk.document.get('configuration', 'users', currentUser._id);
+
+    const bring = new Bring(userConfig._source.email, userConfig._source.password);
+    bring.login();
+
+    for (const recipe of planning.recipies) {
+      for (const ingredient of recipe.ingredients) {
+        bring.saveItem(userConfig._source.listId, ingredient.name, ingredient.specification);
+      }
+    }
 
     return Planning.fromJson(planning);
   }

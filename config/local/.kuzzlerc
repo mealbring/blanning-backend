@@ -3,6 +3,7 @@
     "index": "config",
     "ingredients": "ingredients",
     "recipies": "recipies",
-    "plannings": "plannings"
+    "plannings": "plannings",
+    "users": "users"
   }
 }
