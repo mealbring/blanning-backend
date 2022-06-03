@@ -21,23 +21,23 @@ export class RecipeController extends Controller {
       actions: {
         create: {
           handler: this.create,
-          http: [{ path: 'recipes', verb: 'post' }],
+          http: [{ path: 'recipies', verb: 'post' }],
         },
         delete: {
           handler: this.delete,
-          http: [{ path: 'recipes/:recipeId', verb: 'delete' }],
+          http: [{ path: 'recipies/:recipeId', verb: 'delete' }],
         },
         get: {
           handler: this.get,
-          http: [{ path: 'recipes/:recipeId', verb: 'get' }],
+          http: [{ path: 'recipies/:recipeId', verb: 'get' }],
         },
         list: {
           handler: this.list,
-          http: [{ path: 'recipes', verb: 'get' }],
+          http: [{ path: 'recipies', verb: 'get' }],
         },
         update: {
           handler: this.update,
-          http: [{ path: 'recipes/:recipeId', verb: 'put' }],
+          http: [{ path: 'recipies/:recipeId', verb: 'put' }],
         },
       },
     };
